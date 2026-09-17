@@ -1,0 +1,57 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "everyintro",
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"compatibility_date": "2026-09-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"observability": { "enabled": true },
+
+	// Non-secret config, with PRODUCTION-SAFE defaults. Local dev overrides these
+	// in .dev.vars (see .dev.vars.example). Secrets (ANTHROPIC_API_KEY,
+	// STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET) go in `wrangler secret put`.
+	"vars": {
+		"PUBLIC_BASE_URL": "https://everyintro.andrew-gove.workers.dev",
+		// Clerk publishable key (public by design). The dev instance for now; swap
+		// for the pk_live_ key once the production instance exists. The secret is
+		// `wrangler secret put CLERK_SECRET_KEY`.
+		"PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bWFnaWNhbC1sYWItNTA2Ni5jbGVyay5hY2NvdW50cy5kZXYk",
+		// "true" runs queue jobs in-process instead of via workers/jobs.
+		"INLINE_JOBS": "false",
+		// "false" skips Workers AI + Vectorize (they only run remotely and bill even
+		// from local dev); the matcher then shortlists by recency.
+		"VECTOR_SEARCH": "true",
+		// Hard daily stop on Claude spend, computed from llm_usage (see /admin). Raise deliberately.
+		"LLM_DAILY_BUDGET_GBP": "5"
+	},
+
+	// Create once:  npx wrangler d1 create everyintro  → paste the id below.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "everyintro",
+			"database_id": "9ace55b0-0ce5-467f-a2dc-e340d9c1c1b8",
+			"migrations_dir": "migrations"
+		}
+	],
+
+	// Shared with workers/jobs. Producer here, consumer there.
+	//   npx wrangler queues create everyintro-jobs
+	"queues": {
+		"producers": [{ "binding": "JOBS_QUEUE", "queue": "everyintro-jobs" }]
+	},
+
+	// Embeddings + vector shortlist. Both optional in dev: without them the
+	// matcher skips the vector step (see src/lib/server/matching/shortlist.ts).
+	//   npx wrangler vectorize create everyintro --dimensions=768 --metric=cosine
+	//   npx wrangler vectorize create-metadata-index everyintro --property-name=kind --type=string
+	"ai": { "binding": "AI" },
+	"vectorize": [{ "binding": "VECTORIZE", "index_name": "everyintro" }],
+
+	// Optional CV uploads, only released to an employer after the candidate accepts.
+	//   npx wrangler r2 bucket create everyintro-cvs
+	"r2_buckets": [{ "binding": "CV_BUCKET", "bucket_name": "everyintro-cvs" }]
+}

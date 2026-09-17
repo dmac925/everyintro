@@ -1,0 +1,48 @@
+{
+	"$schema": "../../node_modules/wrangler/config-schema.json",
+	"name": "everyintro-jobs",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-09-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": { "enabled": true },
+
+	// Cost note: both crons are cheap in themselves (a few SQL queries); the
+	// spend is in the work they fan out — Claude reranks for rematches (only new
+	// candidates, at most weekly per role) and the weekly digest (capped at
+	// DIGEST_MAX_CANDIDATES_PER_RUN in src/lib/config.ts). Daily + weekly is the
+	// least frequent cadence that works; don't go hourly without measuring /admin.
+	"triggers": {
+		"crons": [
+			"0 5 * * *", // daily: expiries, stale-job cleanup, public job ingest, due rematches
+			"0 6 * * 1" // Mondays: candidate digests
+		]
+	},
+
+	"vars": {
+		"PUBLIC_BASE_URL": "https://everyintro.andrew-gove.workers.dev"
+	},
+
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "everyintro",
+			"database_id": "9ace55b0-0ce5-467f-a2dc-e340d9c1c1b8",
+			"migrations_dir": "../../migrations"
+		}
+	],
+
+	"queues": {
+		"producers": [{ "binding": "JOBS_QUEUE", "queue": "everyintro-jobs" }],
+		"consumers": [
+			{
+				"queue": "everyintro-jobs",
+				"max_batch_size": 5,
+				"max_retries": 3,
+				"dead_letter_queue": "everyintro-jobs-dlq"
+			}
+		]
+	},
+
+	"ai": { "binding": "AI" },
+	"vectorize": [{ "binding": "VECTORIZE", "index_name": "everyintro" }]
+}

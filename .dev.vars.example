@@ -1,0 +1,18 @@
+# Copy to .dev.vars (gitignored). Read by `vite dev` and `wrangler dev`, and
+# overrides the production-safe "vars" in wrangler.jsonc.
+ANTHROPIC_API_KEY=
+
+# Local-dev overrides
+PUBLIC_BASE_URL=http://localhost:5173
+INLINE_JOBS=true
+VECTOR_SEARCH=false
+
+# Credit guards while developing. mock = scripted chat/matching, zero API calls.
+# Set LLM_MODE=live to hit the real API; MODEL_OVERRIDE keeps that cheap.
+LLM_MODE=mock
+MODEL_OVERRIDE=claude-sonnet-5
+LLM_DAILY_BUDGET_GBP=2
+
+# Optional until billing is wired:
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=

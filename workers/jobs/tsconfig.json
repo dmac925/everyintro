@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "es2022",
+		"moduleResolution": "bundler",
+		"lib": ["es2023"],
+		"types": ["@cloudflare/workers-types"],
+		"strict": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+		"allowImportingTsExtensions": false,
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*.ts", "../../src/lib/server/env.ts", "../../src/lib/server/jobs/**/*.ts"]
+}

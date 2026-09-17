@@ -1,0 +1,189 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+/*
+	EveryIntro design system — "Ink & amber", from the Claude Design canvas
+	(EveryIntro Mobile Redesign.dc.html, option 1c / 2a / 3a-b).
+
+	Cream paper ground, ink for the header/hero/primary actions, one amber
+	accent, Newsreader serif for headings and the wordmark, Manrope for
+	everything else. Single deliberate theme: the dark header is part of the
+	brand, so there is no separate dark mode.
+*/
+@theme {
+	--font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+	--font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+	--font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+	/* Grounds */
+	--color-ground: #f5f2ec;
+	--color-surface: #ffffff;
+	--color-sunk: #eeeae2;
+	--color-cream: #f5f2ec;
+
+	/* Ink (dark surfaces) */
+	--color-ink: #1a1d1c;
+	--color-ink-2: #262a28;
+	--color-ink-3: #3a403e;
+	--color-on-dark: #b9bdb9;
+	--color-on-dark-2: #e4e6e3;
+
+	/* Text */
+	--color-body: #4f544f;
+	--color-muted: #6d726f;
+	--color-faint: #8a8f8b;
+
+	/* Lines */
+	--color-rule: #e3dfd6;
+	--color-rule-2: #d9d5cc;
+	--color-hairline: #c9c4b9;
+
+	/* Accent */
+	--color-amber: #f0b24a;
+	--color-amber-hover: #e5a53c;
+	--color-amber-ink: #c98d1f;
+	--color-amber-soft: #fdf6e6;
+	--color-teal: #2c8c7f;
+	--color-teal-soft: #e4f1ee;
+
+	/* Semantic aliases used throughout the app pages */
+	--color-accent: #c98d1f;
+	--color-accent-soft: #fdf6e6;
+	--color-good: #2c8c7f;
+	--color-good-soft: #e4f1ee;
+	--color-warn: #b8641a;
+	--color-warn-soft: #fbeee0;
+
+	--radius-card: 18px;
+	--radius-btn: 12px;
+	--shadow-lift: 0 24px 50px -24px rgba(26, 29, 28, 0.45);
+	--shadow-hero: 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+}
+
+@layer base {
+	body {
+		@apply bg-ground font-sans text-ink antialiased;
+	}
+	h1,
+	h2,
+	h3 {
+		@apply font-display font-normal tracking-[-0.02em] text-pretty;
+	}
+	strong {
+		@apply font-semibold;
+	}
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible {
+		@apply outline-2 outline-offset-2 outline-amber;
+	}
+	::selection {
+		background: #f0b24a66;
+	}
+}
+
+@layer components {
+	/* Full-bleed band inside the centred <main> (dark hero, chat strip). */
+	.bleed {
+		margin-inline: calc(50% - 50vw);
+	}
+	.container-x {
+		@apply mx-auto w-full max-w-[1200px] px-5 sm:px-10;
+	}
+
+	/* Buttons: ink is primary, amber is the one loud action per screen. */
+	.btn {
+		@apply inline-flex h-12 items-center justify-center gap-2 rounded-btn border-0 bg-ink px-5 text-[15px] font-bold text-cream transition hover:bg-ink-2 disabled:cursor-not-allowed disabled:opacity-50;
+	}
+	.btn-amber {
+		@apply inline-flex h-12 items-center justify-center gap-2 rounded-btn border-0 bg-amber px-5 text-[15px] font-bold text-ink transition hover:bg-amber-hover disabled:cursor-not-allowed disabled:opacity-50;
+	}
+	.btn-ghost {
+		@apply inline-flex h-12 items-center justify-center gap-2 rounded-btn border-[1.5px] border-rule bg-surface px-5 text-[15px] font-semibold text-ink transition hover:bg-ground disabled:cursor-not-allowed disabled:opacity-50;
+	}
+	.btn-outline {
+		@apply inline-flex h-12 items-center justify-center gap-2 rounded-btn border-[1.5px] border-ink bg-transparent px-5 text-[15px] font-bold text-ink transition hover:bg-ink hover:text-cream disabled:cursor-not-allowed disabled:opacity-50;
+	}
+	.btn-sm {
+		@apply h-10 px-4 text-sm;
+	}
+	/* Header pills, on ink. */
+	.pill-dark {
+		@apply inline-flex h-10 items-center rounded-full border border-ink-3 px-4 text-sm font-semibold text-cream transition hover:border-on-dark;
+	}
+	.pill-amber {
+		@apply inline-flex h-10 items-center rounded-full bg-amber px-4 text-sm font-bold text-ink transition hover:bg-amber-hover;
+	}
+	/* Choice chips in the chat. */
+	.chip {
+		@apply inline-flex h-[38px] items-center rounded-full border-[1.5px] border-rule bg-surface px-3.5 text-sm font-semibold text-ink transition hover:border-ink;
+	}
+	.chip-on {
+		@apply border-ink bg-ink text-cream;
+	}
+	.chip-other {
+		@apply border-dashed border-hairline bg-transparent text-muted;
+	}
+
+	.panel {
+		@apply rounded-card border-[1.5px] border-rule bg-surface p-5;
+	}
+	.panel-ink {
+		@apply rounded-card border-[1.5px] border-ink bg-transparent p-5;
+	}
+	.label {
+		@apply text-[11px] font-semibold tracking-[0.08em] text-muted uppercase;
+	}
+	.eyebrow {
+		@apply text-xs font-bold tracking-[0.1em] text-muted uppercase;
+	}
+	.field {
+		@apply block w-full rounded-btn border-0 bg-ground px-3.5 py-3 text-[15px] text-ink placeholder:text-faint focus:ring-2 focus:ring-amber;
+	}
+	.field-white {
+		@apply block w-full rounded-btn border-[1.5px] border-rule bg-surface px-3.5 py-3 text-[15px] text-ink placeholder:text-faint focus:border-ink focus:ring-0;
+	}
+	.pill {
+		@apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+	}
+	.dot {
+		@apply inline-block size-1.5 shrink-0 rounded-full;
+	}
+
+	/* Ledger: the numbered trust list. */
+	.ledger {
+		@apply border-t-2 border-ink;
+	}
+	.ledger-row {
+		@apply grid grid-cols-[56px_1fr] gap-2 border-b border-rule-2 py-[18px] lg:block lg:border-b-0 lg:py-7;
+	}
+	.ledger-num {
+		@apply font-display text-[40px] leading-none text-amber-ink lg:text-[56px];
+	}
+
+	/* Data tables in the app pages. */
+	.table-wrap {
+		@apply overflow-x-auto rounded-card border-[1.5px] border-rule bg-surface;
+	}
+	.table-wrap table {
+		@apply w-full text-sm;
+	}
+	.table-wrap thead {
+		@apply bg-ground text-left;
+	}
+	.table-wrap th {
+		@apply px-4 py-2.5 text-[11px] font-semibold tracking-[0.08em] text-muted uppercase;
+	}
+	.table-wrap td {
+		@apply px-4 py-3 align-top;
+	}
+	.table-wrap tbody tr + tr {
+		@apply border-t border-sunk;
+	}
+	.link {
+		@apply font-semibold text-amber-ink underline-offset-2 hover:underline;
+	}
+}
+

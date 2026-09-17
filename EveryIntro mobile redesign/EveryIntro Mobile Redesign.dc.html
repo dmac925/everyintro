@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics=""><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700&amp;family=Figtree:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;family=DM+Sans:wght@400;500;600&amp;family=Newsreader:ital,wght@0,400;0,500;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>body{margin:0;background:#ece9e2;font-family:system-ui,sans-serif}a{color:inherit}a:hover{color:inherit}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}.dv-row{display:flex;gap:16px;align-items:flex-start}</style></helmet>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">Chat / profile builder in the <a class="dv-oid" href="#1c">1c</a> language — mobile and desktop</span></div>
+<div style="max-width:760px;margin:0 0 28px;font:13px/1.55 system-ui,sans-serif;color:rgba(0,0,0,.6)">
+<p style="margin:0 0 8px"><strong style="color:#1a1a1a">Moment shown:</strong> the user has sent their first message. The agent has read it, filled in what it could (4 of 9), and asks the next thing with a structured card inline so it's a tap, not typing. Both ideas from your note are here: inline cards for the hard-to-type answers (salary, work mode), and a live profile that fills in as you talk.</p>
+<p style="margin:0"><strong style="color:#1a1a1a">Mobile:</strong> profile is a compact progress strip under the header; tapping it opens the sheet. <strong style="color:#1a1a1a">Desktop:</strong> the profile sits beside the chat and updates live. Same 9 fields as today, private ones marked. Salary card values are placeholders.</p>
+</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a"><div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>Mobile — chat with inline card, and the profile sheet</div>
+<div class="dv-row">
+<div class="dv-card" style="width:390px;height:844px;background:#f5f2ec;color:#1a1d1c;font-family:'Manrope',system-ui,sans-serif;display:flex;flex-direction:column" data-screen-label="3a Mobile chat">
+  <div style="background:#1a1d1c;color:#f5f2ec;padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px"><div style="height:2px;width:18px;background:#f5f2ec"></div><div style="height:2px;width:18px;background:#f5f2ec"></div></div>
+      <div style="font:500 20px/1 'Newsreader',serif">EveryIntro</div>
+    </div>
+    <a href="#" style="font:600 13px 'Manrope',sans-serif;text-decoration:none;color:#f5f2ec;border:1px solid #3a403e;border-radius:999px;height:34px;padding:0 12px;display:flex;align-items:center">Save progress</a>
+  </div>
+  <div style="background:#1a1d1c;padding:0 16px 14px">
+    <div style="background:#262a28;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px;color:#f5f2ec">
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;font:700 12px 'Manrope',sans-serif"><span>Your profile</span><span style="color:#f0b24a">4 of 9</span></div>
+        <div style="margin-top:8px;height:4px;background:#3a403e;border-radius:2px;overflow:hidden"><div style="width:44%;height:100%;background:#f0b24a"></div></div>
+      </div>
+      <div style="font:600 13px 'Manrope',sans-serif;color:#b9bdb9;display:flex;align-items:center;gap:4px">View<span>›</span></div>
+    </div>
+  </div>
+
+  <div style="flex:1;overflow:hidden;padding:20px 16px 0;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;gap:10px">
+      <div style="flex:none;width:8px;height:8px;border-radius:50%;background:#f0b24a;margin-top:8px"></div>
+      <p style="margin:0;font:400 15px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Hi — tell me what you do and what you'd want from your next role, in your own words. Nothing is shown to employers until you say so.</p>
+    </div>
+    <div style="align-self:flex-end;max-width:300px;background:#1a1d1c;color:#f5f2ec;border-radius:18px 18px 4px 18px;padding:12px 16px;font:400 15px/1.5 'Manrope',sans-serif;text-wrap:pretty">I'm a product designer in Manchester, 6 years in, mostly B2B SaaS. I want something more hands-on — less managing, more making. Hybrid is fine, two days in the office max.</div>
+    <div style="display:flex;gap:10px">
+      <div style="flex:none;width:8px;height:8px;border-radius:50%;background:#f0b24a;margin-top:8px"></div>
+      <div style="flex:1">
+        <p style="margin:0;font:400 15px/1.5 'Manrope',sans-serif;color:#1a1d1c;text-wrap:pretty">Got it. I've noted <strong>senior product designer</strong>, <strong>Manchester</strong>, <strong>hybrid up to 2 days</strong>, and that you want to be hands-on. One more so I only show roles that actually fit:</p>
+        <div style="margin-top:12px;background:#fff;border:1.5px solid #e3dfd6;border-radius:16px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div style="font:700 15px 'Manrope',sans-serif">Salary floor</div>
+            <div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#6d726f;display:inline-block"></span>Private</div>
+          </div>
+          <p style="margin:6px 0 12px;font:400 13px/1.45 'Manrope',sans-serif;color:#6d726f">The lowest you'd say yes to. Employers never see this — it just filters out roles beneath it.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:38px;padding:0 14px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£55k</button>
+            <button style="border:1.5px solid #1a1d1c;background:#1a1d1c;color:#f5f2ec;border-radius:999px;height:38px;padding:0 14px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£65k</button>
+            <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:38px;padding:0 14px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£75k</button>
+            <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:38px;padding:0 14px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£85k+</button>
+            <button style="border:1.5px dashed #c9c4b9;background:transparent;color:#6d726f;border-radius:999px;height:38px;padding:0 14px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Other</button>
+          </div>
+          <button style="margin-top:12px;width:100%;border:none;background:#f0b24a;color:#1a1d1c;border-radius:12px;height:44px;font:700 14px 'Manrope',sans-serif;cursor:pointer">Set £65k floor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border-top:1px solid #e3dfd6;padding:12px 16px 14px">
+    <div style="display:flex;gap:8px;align-items:flex-end">
+      <button style="flex:none;width:44px;height:44px;border-radius:12px;border:1.5px solid #e3dfd6;background:#fff;font-size:22px;line-height:1;color:#1a1d1c;cursor:pointer">+</button>
+      <div style="flex:1;background:#f5f2ec;border-radius:12px;padding:12px 14px;min-height:44px;box-sizing:border-box;font:400 15px/1.35 'Manrope',sans-serif;color:#8a8f8b">Or just type it…</div>
+      <button style="flex:none;width:44px;height:44px;border-radius:12px;border:none;background:#1a1d1c;color:#f5f2ec;font-size:18px;cursor:pointer">↑</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;font:500 12px 'Manrope',sans-serif;color:#6d726f">
+      <span>+ adds a CV (PDF) or LinkedIn profile</span>
+      <span style="display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#2c8c7f;display:inline-block"></span>Anonymous</span>
+    </div>
+  </div>
+</div>
+
+<div class="dv-card" style="width:390px;height:844px;position:relative;background:#f5f2ec;color:#1a1d1c;font-family:'Manrope',system-ui,sans-serif" data-screen-label="3a Mobile profile sheet">
+  <div style="background:#1a1d1c;color:#f5f2ec;padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px"><div style="height:2px;width:18px;background:#f5f2ec"></div><div style="height:2px;width:18px;background:#f5f2ec"></div></div>
+      <div style="font:500 20px/1 'Newsreader',serif">EveryIntro</div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;background:rgba(26,29,28,.45)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:#f5f2ec;border-radius:24px 24px 0 0;padding:10px 20px 20px;box-shadow:0 -20px 60px -20px rgba(0,0,0,.5)">
+    <div style="width:40px;height:4px;border-radius:2px;background:#c9c4b9;margin:0 auto 18px"></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <h2 style="margin:0;font:400 30px/1 'Newsreader',serif;letter-spacing:-.015em">Your profile</h2>
+      <div style="font:700 14px 'Manrope',sans-serif;color:#c98d1f">4 of 9</div>
+    </div>
+    <div style="margin-top:14px;height:4px;background:#e3dfd6;border-radius:2px;overflow:hidden"><div style="width:44%;height:100%;background:#f0b24a"></div></div>
+    <p style="margin:10px 0 0;font:400 13px/1.45 'Manrope',sans-serif;color:#6d726f">Employers see the plain rows. Rows marked private are only used to filter.</p>
+
+    <div style="margin-top:18px;background:#fff;border-radius:18px;border:1.5px solid #e3dfd6;overflow:hidden">
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">✓</div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Roles you want</div><div style="font:600 15px/1.3 'Manrope',sans-serif">Senior Product Designer</div></div>
+        <div style="font:600 13px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">✓</div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">What you want next</div><div style="font:600 15px/1.3 'Manrope',sans-serif">Hands-on, less managing, more making</div></div>
+        <div style="font:600 13px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">✓</div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Onsite, hybrid or remote</div><div style="font:600 15px/1.3 'Manrope',sans-serif">Hybrid · up to 2 days in office</div></div>
+        <div style="font:600 13px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">✓</div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Location</div><div style="font:600 15px/1.3 'Manrope',sans-serif">Manchester</div></div>
+        <div style="font:600 13px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2;background:#fdf6e6">
+        <div style="width:20px;height:20px;border-radius:50%;border:2px solid #f0b24a;box-sizing:border-box"></div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#c98d1f">Salary floor · private</div><div style="font:500 15px/1.3 'Manrope',sans-serif;color:#6d726f">Asking now</div></div>
+        <div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Seniority</div><div style="font:500 15px/1.3 'Manrope',sans-serif;color:#8a8f8b">Likely senior (6 yrs) — to confirm</div></div>
+        <div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Skills with evidence</div><div style="font:500 15px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+        <div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-bottom:1px solid #eeeae2">
+        <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Right to work in the UK</div><div style="font:500 15px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+        <div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:22px 1fr auto;gap:12px;align-items:center;padding:13px 16px">
+        <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+        <div><div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Notice period</div><div style="font:500 15px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+        <div></div>
+      </div>
+    </div>
+    <button style="margin-top:14px;width:100%;border:none;background:#1a1d1c;color:#f5f2ec;border-radius:12px;height:48px;font:700 15px 'Manrope',sans-serif;cursor:pointer">Back to the chat</button>
+  </div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="3b"><div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>Desktop — chat with live profile beside it, 1440px</div>
+<div class="dv-card" style="width:1440px;height:900px;background:#f5f2ec;color:#1a1d1c;font-family:'Manrope',system-ui,sans-serif;display:flex;flex-direction:column" data-screen-label="3b Desktop chat">
+  <div style="background:#1a1d1c;color:#f5f2ec;flex:none">
+    <div style="max-width:1240px;margin:0 auto;padding:18px 40px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font:500 26px/1 'Newsreader',serif;letter-spacing:-.01em">EveryIntro</div>
+      <div style="display:flex;align-items:center;gap:10px;font:600 14px 'Manrope',sans-serif;color:#b9bdb9"><span style="width:6px;height:6px;border-radius:50%;background:#2c8c7f;display:inline-block"></span>Anonymous to employers</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <a href="#" style="font:600 14px 'Manrope',sans-serif;text-decoration:none;color:#f5f2ec;border:1px solid #3a403e;border-radius:999px;height:40px;padding:0 18px;display:flex;align-items:center">Save progress</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;max-width:1240px;width:100%;margin:0 auto;padding:32px 40px 0;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px">
+    <div style="display:flex;flex-direction:column;min-height:0;background:#fff;border:1.5px solid #e3dfd6;border-radius:24px 24px 0 0;border-bottom:none;overflow:hidden">
+      <div style="flex:1;overflow:hidden;padding:32px 36px 0;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:14px;max-width:640px">
+          <div style="flex:none;width:8px;height:8px;border-radius:50%;background:#f0b24a;margin-top:9px"></div>
+          <p style="margin:0;font:400 16px/1.55 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Hi — tell me what you do and what you'd want from your next role, in your own words. Or drop in your CV and I'll do the reading. Nothing is shown to employers until you say so.</p>
+        </div>
+        <div style="align-self:flex-end;max-width:520px;background:#1a1d1c;color:#f5f2ec;border-radius:20px 20px 4px 20px;padding:14px 18px;font:400 16px/1.55 'Manrope',sans-serif;text-wrap:pretty">I'm a product designer in Manchester, 6 years in, mostly B2B SaaS. I want something more hands-on — less managing, more making. Hybrid is fine, two days in the office max.</div>
+        <div style="display:flex;gap:14px;max-width:640px">
+          <div style="flex:none;width:8px;height:8px;border-radius:50%;background:#f0b24a;margin-top:9px"></div>
+          <div style="flex:1">
+            <p style="margin:0;font:400 16px/1.55 'Manrope',sans-serif;text-wrap:pretty">Got it. I've noted <strong>senior product designer</strong>, <strong>Manchester</strong>, <strong>hybrid up to 2 days</strong>, and that you want to be hands-on — you can see them filling in on the right. One more so I only show roles that actually fit:</p>
+            <div style="margin-top:14px;background:#f5f2ec;border-radius:18px;padding:20px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div style="font:700 16px 'Manrope',sans-serif">Salary floor</div>
+                <div style="font:600 11px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:#6d726f;display:inline-block"></span>Private</div>
+              </div>
+              <p style="margin:6px 0 14px;font:400 14px/1.45 'Manrope',sans-serif;color:#6d726f">The lowest you'd say yes to. Employers never see this — it just filters out roles beneath it.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:40px;padding:0 16px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£55k</button>
+                <button style="border:1.5px solid #1a1d1c;background:#1a1d1c;color:#f5f2ec;border-radius:999px;height:40px;padding:0 16px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£65k</button>
+                <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:40px;padding:0 16px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£75k</button>
+                <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:999px;height:40px;padding:0 16px;font:600 14px 'Manrope',sans-serif;cursor:pointer">£85k+</button>
+                <button style="border:1.5px dashed #c9c4b9;background:transparent;color:#6d726f;border-radius:999px;height:40px;padding:0 16px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Other</button>
+                <button style="margin-left:auto;border:none;background:#f0b24a;color:#1a1d1c;border-radius:12px;height:44px;padding:0 20px;font:700 14px 'Manrope',sans-serif;cursor:pointer">Set £65k floor</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:none;border-top:1px solid #e3dfd6;padding:16px 24px 20px">
+        <div style="display:flex;gap:10px;align-items:flex-end">
+          <button style="flex:none;width:48px;height:48px;border-radius:12px;border:1.5px solid #e3dfd6;background:#fff;font-size:24px;line-height:1;color:#1a1d1c;cursor:pointer">+</button>
+          <div style="flex:1;background:#f5f2ec;border-radius:12px;padding:14px 16px;min-height:48px;box-sizing:border-box;font:400 16px/1.35 'Manrope',sans-serif;color:#8a8f8b">Or just type it…</div>
+          <button style="flex:none;height:48px;border-radius:12px;border:none;background:#1a1d1c;color:#f5f2ec;padding:0 20px;font:700 15px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px"><span>Send</span><span>↑</span></button>
+        </div>
+        <div style="margin-top:10px;font:500 13px 'Manrope',sans-serif;color:#6d726f">+ adds a CV (PDF) or LinkedIn profile · Enter to send, Shift+Enter for a new line</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;min-height:0">
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <h2 style="margin:0;font:400 30px/1 'Newsreader',serif;letter-spacing:-.015em">Your profile</h2>
+        <div style="font:700 14px 'Manrope',sans-serif;color:#c98d1f">4 of 9</div>
+      </div>
+      <div style="margin-top:14px;height:4px;background:#e3dfd6;border-radius:2px;overflow:hidden"><div style="width:44%;height:100%;background:#f0b24a"></div></div>
+      <p style="margin:10px 0 0;font:400 13px/1.45 'Manrope',sans-serif;color:#6d726f">Fills in as you talk. Employers see the plain rows; private rows only filter.</p>
+      <div style="margin-top:18px;background:#fff;border-radius:18px;border:1.5px solid #e3dfd6;overflow:hidden">
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">✓</div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Roles you want</div><div style="font:600 14px/1.3 'Manrope',sans-serif">Senior Product Designer</div></div>
+          <div style="font:600 12px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">✓</div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">What you want next</div><div style="font:600 14px/1.3 'Manrope',sans-serif">Hands-on, less managing, more making</div></div>
+          <div style="font:600 12px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">✓</div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Onsite, hybrid or remote</div><div style="font:600 14px/1.3 'Manrope',sans-serif">Hybrid · up to 2 days in office</div></div>
+          <div style="font:600 12px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;background:#1a1d1c;color:#f5f2ec;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">✓</div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Location</div><div style="font:600 14px/1.3 'Manrope',sans-serif">Manchester</div></div>
+          <div style="font:600 12px 'Manrope',sans-serif;color:#6d726f">Edit</div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2;background:#fdf6e6">
+          <div style="width:18px;height:18px;border-radius:50%;border:2px solid #f0b24a;box-sizing:border-box"></div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#c98d1f">Salary floor · private</div><div style="font:500 14px/1.3 'Manrope',sans-serif;color:#6d726f">Asking now</div></div>
+          <div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Seniority</div><div style="font:500 14px/1.3 'Manrope',sans-serif;color:#8a8f8b">Likely senior (6 yrs) — to confirm</div></div>
+          <div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Skills with evidence</div><div style="font:500 14px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+          <div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px;border-bottom:1px solid #eeeae2">
+          <div style="width:18px;height:18px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Right to work in the UK</div><div style="font:500 14px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+          <div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:12px 16px">
+          <div style="width:18px;height:18px;border-radius:50%;border:1.5px solid #c9c4b9;box-sizing:border-box"></div>
+          <div><div style="font:600 10.5px 'Manrope',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6d726f">Notice period</div><div style="font:500 14px/1.3 'Manrope',sans-serif;color:#8a8f8b">Not yet</div></div>
+          <div></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:16px 18px;border:1.5px dashed #c9c4b9;border-radius:16px;font:400 13px/1.5 'Manrope',sans-serif;color:#6d726f">Once 9 of 9 are in, we'll start showing roles that fit and tell you why each one matched.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "show the moment a CV is being read" · "show the 9 of 9 state with first matches" · "add the save/email prompt after the salary card"</p>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Desktop version of <a class="dv-oid" href="#1c">1c</a> — Ink &amp; amber at 1440px</span></div>
+<div style="max-width:720px;margin:0 0 28px;font:13px/1.55 system-ui,sans-serif;color:rgba(0,0,0,.6)">
+<p style="margin:0"><strong style="color:#1a1a1a">Approach:</strong> the dark hero becomes a two-column split — headline left, chat card right, so the conversation is visible above the fold without scrolling. Trust ledger runs as three columns; Hiring block and footer stay in the same ink/amber vocabulary. Same copy, same fonts, same colours as <a class="dv-oid" href="#1c">1c</a>. Desktop nav replaces the drawer.</p>
+</div>
+<div class="dv-opts">
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Desktop landing — 1440px</div>
+<div class="dv-card" style="width:1440px;background:#f5f2ec;color:#1a1d1c;font-family:'Manrope',system-ui,sans-serif" data-screen-label="2a Desktop">
+  <div style="background:#1a1d1c;color:#f5f2ec">
+    <div style="max-width:1200px;margin:0 auto;padding:22px 40px;display:flex;align-items:center;justify-content:space-between">
+      <div style="font:500 26px/1 'Newsreader',serif;letter-spacing:-.01em">EveryIntro</div>
+      <div style="display:flex;align-items:center;gap:32px;font:600 15px 'Manrope',sans-serif">
+        <a href="#" style="text-decoration:none;color:#f5f2ec">Find a role</a>
+        <a href="#" style="text-decoration:none;color:#b9bdb9">For employers</a>
+        <a href="#" style="text-decoration:none;color:#b9bdb9">Pricing</a>
+        <a href="#" style="text-decoration:none;color:#b9bdb9">Mission</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <a href="#" style="font:600 14px 'Manrope',sans-serif;text-decoration:none;color:#f5f2ec;border:1px solid #3a403e;border-radius:999px;height:40px;padding:0 18px;display:flex;align-items:center">Sign in</a>
+        <a href="#" style="font:700 14px 'Manrope',sans-serif;text-decoration:none;color:#1a1d1c;background:#f0b24a;border-radius:999px;height:40px;padding:0 18px;display:flex;align-items:center">Start a chat</a>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:64px 40px 96px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:72px;align-items:center">
+      <div>
+        <h1 style="margin:0;font:400 72px/1.02 'Newsreader',serif;letter-spacing:-.025em;text-wrap:pretty">Tell us what you want next.<br><span style="color:#f0b24a;font-style:italic">Skip the CV.</span></h1>
+        <p style="margin:26px 0 0;max-width:520px;font:400 20px/1.55 'Manrope',sans-serif;color:#b9bdb9;text-wrap:pretty">A short chat about what you're looking for. We only show you roles that fit, and nobody takes a cut of your salary.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:32px">
+          <span style="border:1px solid #3a403e;border-radius:999px;padding:10px 14px;font:600 13px 'Manrope',sans-serif;color:#e4e6e3">No account to start</span>
+          <span style="border:1px solid #3a403e;border-radius:999px;padding:10px 14px;font:600 13px 'Manrope',sans-serif;color:#e4e6e3">CV or LinkedIn optional</span>
+          <span style="border:1px solid #3a403e;border-radius:999px;padding:10px 14px;font:600 13px 'Manrope',sans-serif;color:#e4e6e3">Anonymous until you accept</span>
+        </div>
+      </div>
+      <div style="background:#fff;color:#1a1d1c;border-radius:24px;padding:28px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)">
+        <div style="display:flex;gap:10px;align-items:center">
+          <div style="width:10px;height:10px;border-radius:50%;background:#f0b24a"></div>
+          <div style="font:700 12px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6d726f">Your agent</div>
+        </div>
+        <p style="margin:14px 0 0;font:400 18px/1.5 'Manrope',sans-serif;text-wrap:pretty">Hi — tell me what you do and what you'd want from your next role, in your own words. Or drop in your CV and I'll do the reading. Nothing is shown to employers until you say so.</p>
+        <div style="margin-top:20px;background:#f5f2ec;border-radius:16px;padding:16px;min-height:120px;box-sizing:border-box;font:400 16px/1.5 'Manrope',sans-serif;color:#8a8f8b">e.g. I'm a product designer in Manchester, 6 years in, looking for something more hands-on…</div>
+        <button style="margin-top:12px;width:100%;border:none;background:#f0b24a;color:#1a1d1c;border-radius:14px;height:54px;font:700 16px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px" style-hover="background:#e5a53c"><span>{{ cta }} the chat</span><span>→</span></button>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:14px;height:48px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Upload CV (PDF)</button>
+          <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:14px;height:48px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Import LinkedIn</button>
+        </div>
+        <p style="margin:14px 2px 0;font:400 13px/1.45 'Manrope',sans-serif;color:#6d726f">No account needed to start. We'll ask for an email when you want to save.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:88px 40px 0">
+    <h2 style="margin:0;max-width:640px;font:400 44px/1.1 'Newsreader',serif;letter-spacing:-.02em;text-wrap:pretty">Built for the person looking, not the person paying.</h2>
+    <div style="margin-top:36px;border-top:2px solid #1a1d1c;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px">
+      <div style="padding:28px 0 32px">
+        <div style="font:400 56px/1 'Newsreader',serif;color:#c98d1f">01</div>
+        <h3 style="margin:18px 0 0;font:700 20px/1.3 'Manrope',sans-serif">Only roles that fit</h3>
+        <p style="margin:8px 0 0;font:400 16px/1.55 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Salary, location and how you want to work are enforced before any AI judgement. You see why you were matched.</p>
+      </div>
+      <div style="padding:28px 0 32px">
+        <div style="font:400 56px/1 'Newsreader',serif;color:#c98d1f">02</div>
+        <h3 style="margin:18px 0 0;font:700 20px/1.3 'Manrope',sans-serif">You stay anonymous</h3>
+        <p style="margin:8px 0 0;font:400 16px/1.55 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Employers see what you've done and what you want — never your name, contact details or salary floor — until you say yes.</p>
+      </div>
+      <div style="padding:28px 0 32px">
+        <div style="font:400 56px/1 'Newsreader',serif;color:#c98d1f">03</div>
+        <h3 style="margin:18px 0 0;font:700 20px/1.3 'Manrope',sans-serif">On your side</h3>
+        <p style="margin:8px 0 0;font:400 16px/1.55 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">We aren't paid a slice of your salary, so there's no reason to push you anywhere. The company keeps its budget for you.</p>
+      </div>
+    </div>
+    <div style="border-bottom:1px solid #d9d5cc"></div>
+  </div>
+
+  <div style="max-width:1200px;margin:72px auto 0;padding:0 40px">
+    <div style="border:1.5px solid #1a1d1c;border-radius:24px;padding:40px 44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center">
+      <div>
+        <div style="display:flex;gap:18px;align-items:baseline">
+          <h3 style="margin:0;font:400 40px/1.1 'Newsreader',serif;letter-spacing:-.02em">Hiring?</h3>
+          <div style="font:700 14px 'Manrope',sans-serif;color:#c98d1f">£100 a role · first 10 free</div>
+        </div>
+        <p style="margin:12px 0 0;max-width:560px;font:400 17px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Same AI agent for your side. A flat fee — not 10% of the salary like a recruiter.</p>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button style="border:none;background:#1a1d1c;color:#f5f2ec;border-radius:12px;height:48px;padding:0 20px;font:700 15px 'Manrope',sans-serif;cursor:pointer">How it works for employers</button>
+        <button style="border:1.5px solid #1a1d1c;background:transparent;color:#1a1d1c;border-radius:12px;height:48px;padding:0 20px;font:700 15px 'Manrope',sans-serif;cursor:pointer">Pricing</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:88px;background:#1a1d1c;color:#f5f2ec">
+    <div style="max-width:1200px;margin:0 auto;padding:40px 40px 48px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
+      <div>
+        <div style="font:500 24px 'Newsreader',serif">EveryIntro</div>
+        <p style="margin:8px 0 0;font:400 15px/1.5 'Manrope',sans-serif;color:#b9bdb9">AI hiring, flat fee, no cut of anyone's salary.</p>
+      </div>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;font:600 15px 'Manrope',sans-serif"><a href="#" style="text-decoration:none;color:inherit">Mission</a><a href="#" style="text-decoration:none;color:inherit">Pricing</a><a href="#" style="text-decoration:none;color:inherit">Privacy</a><a href="#" style="text-decoration:none;color:inherit">Source (AGPL-3.0)</a></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<p class="dv-next">Try next: "tighten the hero so the chat card sits higher" · "show the desktop chat mid-conversation" · "add a tablet breakpoint"</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">EveryIntro mobile landing — three directions, fresh but familiar</span></div>
+<div style="max-width:720px;margin:0 0 28px;font:13px/1.55 system-ui,sans-serif;color:rgba(0,0,0,.6)">
+<p style="margin:0 0 8px"><strong style="color:#1a1a1a">Read of the MVP:</strong> the structure is right (promise → chat → three reasons → hiring → footer). What's missing is warmth and hierarchy: everything is the same grey card, the chat looks like a form, and the trust points read as fine print.</p>
+<p style="margin:0 0 8px"><strong style="color:#1a1a1a">Shared moves:</strong> warm off-white ground instead of cool grey; one accent colour per option; the chat becomes the hero, not a widget under it; the three trust points get more air; copy kept near-verbatim with light trims. Nav drawer included for each.</p>
+<p style="margin:0"><strong style="color:#1a1a1a">Assumptions:</strong> no logo yet (wordmark only); AGPL/source link stays in footer; 390px viewport.</p>
+</div>
+<div class="dv-opts">
+
+<!-- ============ 1a ============ -->
+
+
+<!-- ============ 1b ============ -->
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Editorial — cream paper, serif voice, the conversation is the page</div>
+<div class="dv-row">
+
+
+<sc-if value="{{ showDrawers }}" hint-placeholder-val="{{ true }}">
+
+</sc-if>
+</div></div>
+
+<!-- ============ 1c ============ -->
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Ink &amp; amber — dark hero block, chat card breaks out of it, ledger-style trust list</div>
+<div class="dv-row">
+<div class="dv-card" style="width:390px;background:#f5f2ec;color:#1a1d1c;font-family:'Manrope',system-ui,sans-serif" data-screen-label="1c Landing">
+  <div style="background:#1a1d1c;color:#f5f2ec;padding:0 0 110px">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px">
+      <div style="font:500 22px/1 'Newsreader',serif;letter-spacing:-.01em">EveryIntro</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <a href="#" style="font:600 14px 'Manrope',sans-serif;text-decoration:none;color:#f5f2ec;border:1px solid #3a403e;border-radius:999px;height:38px;padding:0 14px;display:flex;align-items:center">Sign in</a>
+        <div style="width:40px;height:38px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px"><div style="height:2px;width:20px;background:#f5f2ec"></div><div style="height:2px;width:20px;background:#f5f2ec"></div></div>
+      </div>
+    </div>
+    <div style="padding:34px 20px 0">
+      <h1 style="margin:0;font:400 44px/1.05 'Newsreader',serif;letter-spacing:-.02em;text-wrap:pretty">Tell us what you want next.<br><span style="color:#f0b24a;font-style:italic">Skip the CV.</span></h1>
+      <p style="margin:18px 0 0;font:400 16px/1.55 'Manrope',sans-serif;color:#b9bdb9;text-wrap:pretty">A short chat about what you're looking for. We only show you roles that fit, and nobody takes a cut of your salary.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:22px">
+        <span style="border:1px solid #3a403e;border-radius:999px;padding:8px 12px;font:600 12.5px 'Manrope',sans-serif;color:#e4e6e3">No account to start</span>
+        <span style="border:1px solid #3a403e;border-radius:999px;padding:8px 12px;font:600 12.5px 'Manrope',sans-serif;color:#e4e6e3">CV or LinkedIn optional</span>
+        <span style="border:1px solid #3a403e;border-radius:999px;padding:8px 12px;font:600 12.5px 'Manrope',sans-serif;color:#e4e6e3">Anonymous until you accept</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:-86px 16px 0;background:#fff;border-radius:20px;padding:18px 16px 16px;box-shadow:0 24px 50px -24px rgba(26,29,28,.45)">
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="width:10px;height:10px;border-radius:50%;background:#f0b24a"></div>
+      <div style="font:700 12px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6d726f">Your agent</div>
+    </div>
+    <p style="margin:12px 0 0;font:400 17px/1.5 'Manrope',sans-serif;color:#1a1d1c;text-wrap:pretty">Hi — tell me what you do and what you'd want from your next role, in your own words. Or drop in your CV and I'll do the reading. Nothing is shown to employers until you say so.</p>
+    <div style="margin-top:16px;background:#f5f2ec;border-radius:14px;padding:14px;min-height:90px;box-sizing:border-box;font:400 16px/1.5 'Manrope',sans-serif;color:#8a8f8b">e.g. I'm a product designer in Manchester, 6 years in, looking for something more hands-on…</div>
+    <button style="margin-top:12px;width:100%;border:none;background:#f0b24a;color:#1a1d1c;border-radius:14px;height:52px;font:700 16px 'Manrope',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px" style-hover="background:#e5a53c"><span>{{ cta }} the chat</span><span>→</span></button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+      <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:14px;height:46px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Upload CV (PDF)</button>
+      <button style="border:1.5px solid #e3dfd6;background:#fff;color:#1a1d1c;border-radius:14px;height:46px;font:600 14px 'Manrope',sans-serif;cursor:pointer">Import LinkedIn</button>
+    </div>
+    <p style="margin:12px 2px 0;font:400 13px/1.45 'Manrope',sans-serif;color:#6d726f">No account needed to start. We'll ask for an email when you want to save.</p>
+  </div>
+
+  <div style="padding:48px 20px 0">
+    <h2 style="margin:0;font:400 32px/1.1 'Newsreader',serif;letter-spacing:-.015em;text-wrap:pretty">Built for the person looking, not the person paying.</h2>
+    <div style="margin-top:22px;border-top:2px solid #1a1d1c">
+      <div style="display:grid;grid-template-columns:56px 1fr;gap:8px;padding:18px 0;border-bottom:1px solid #d9d5cc">
+        <div style="font:400 40px/1 'Newsreader',serif;color:#c98d1f">01</div>
+        <div><h3 style="margin:2px 0 0;font:700 17px/1.3 'Manrope',sans-serif">Only roles that fit</h3><p style="margin:6px 0 0;font:400 15px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Salary, location and how you want to work are enforced before any AI judgement. You see why you were matched.</p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 1fr;gap:8px;padding:18px 0;border-bottom:1px solid #d9d5cc">
+        <div style="font:400 40px/1 'Newsreader',serif;color:#c98d1f">02</div>
+        <div><h3 style="margin:2px 0 0;font:700 17px/1.3 'Manrope',sans-serif">You stay anonymous</h3><p style="margin:6px 0 0;font:400 15px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Employers see what you've done and what you want — never your name, contact details or salary floor — until you say yes.</p></div>
+      </div>
+      <div style="display:grid;grid-template-columns:56px 1fr;gap:8px;padding:18px 0;border-bottom:1px solid #d9d5cc">
+        <div style="font:400 40px/1 'Newsreader',serif;color:#c98d1f">03</div>
+        <div><h3 style="margin:2px 0 0;font:700 17px/1.3 'Manrope',sans-serif">On your side</h3><p style="margin:6px 0 0;font:400 15px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">We aren't paid a slice of your salary, so there's no reason to push you anywhere. The company keeps its budget for you.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin:40px 20px 0;border:1.5px solid #1a1d1c;border-radius:20px;padding:22px 20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <h3 style="margin:0;font:400 28px/1.1 'Newsreader',serif;letter-spacing:-.015em">Hiring?</h3>
+      <div style="font:700 13px 'Manrope',sans-serif;color:#c98d1f">£100 a role · first 10 free</div>
+    </div>
+    <p style="margin:10px 0 18px;font:400 15px/1.5 'Manrope',sans-serif;color:#4f544f;text-wrap:pretty">Same AI agent for your side. A flat fee — not 10% of the salary like a recruiter.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button style="border:none;background:#1a1d1c;color:#f5f2ec;border-radius:12px;height:44px;padding:0 16px;font:700 14px 'Manrope',sans-serif;cursor:pointer">How it works for employers</button>
+      <button style="border:1.5px solid #1a1d1c;background:transparent;color:#1a1d1c;border-radius:12px;height:44px;padding:0 16px;font:700 14px 'Manrope',sans-serif;cursor:pointer">Pricing</button>
+    </div>
+  </div>
+
+  <div style="margin-top:44px;background:#1a1d1c;color:#f5f2ec;padding:28px 20px 34px">
+    <div style="font:500 20px 'Newsreader',serif">EveryIntro</div>
+    <p style="margin:6px 0 18px;font:400 14px/1.5 'Manrope',sans-serif;color:#b9bdb9">AI hiring, flat fee, no cut of anyone's salary.</p>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;font:600 14px 'Manrope',sans-serif;color:#f5f2ec"><a href="#" style="text-decoration:none;color:inherit">Mission</a><a href="#" style="text-decoration:none;color:inherit">Pricing</a><a href="#" style="text-decoration:none;color:inherit">Privacy</a><a href="#" style="text-decoration:none;color:inherit">Source (AGPL-3.0)</a></div>
+  </div>
+</div>
+
+<sc-if value="{{ showDrawers }}" hint-placeholder-val="{{ true }}">
+<div class="dv-card" style="width:390px;height:620px;position:relative;background:#1a1d1c;color:#f5f2ec;font-family:'Manrope',system-ui,sans-serif" data-screen-label="1c Drawer">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px">
+    <div style="font:500 22px/1 'Newsreader',serif">EveryIntro</div>
+    <div style="width:40px;height:38px;display:flex;align-items:center;justify-content:flex-end;font-size:26px;font-weight:300">×</div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:16px;top:80px;background:#f5f2ec;color:#1a1d1c;border-radius:20px;padding:24px 20px 20px;box-sizing:border-box;display:flex;flex-direction:column">
+    <div style="font:700 12px 'Manrope',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#6d726f">Menu</div>
+    <div style="display:flex;flex-direction:column;margin-top:10px">
+      <a href="#" style="text-decoration:none;color:inherit;font:400 30px/1 'Newsreader',serif;padding:14px 0;border-bottom:1px solid #d9d5cc">Find a role</a>
+      <a href="#" style="text-decoration:none;color:inherit;font:400 30px/1 'Newsreader',serif;padding:14px 0;border-bottom:1px solid #d9d5cc">For employers</a>
+      <a href="#" style="text-decoration:none;color:inherit;font:400 30px/1 'Newsreader',serif;padding:14px 0;border-bottom:1px solid #d9d5cc">Pricing</a>
+      <a href="#" style="text-decoration:none;color:inherit;font:400 30px/1 'Newsreader',serif;padding:14px 0;border-bottom:1px solid #d9d5cc">Mission</a>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:16px;font:600 13px 'Manrope',sans-serif;color:#6d726f"><a href="#" style="text-decoration:none;color:inherit">Privacy</a><a href="#" style="text-decoration:none;color:inherit">Source (AGPL-3.0)</a></div>
+    <div style="margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button style="border:1.5px solid #1a1d1c;background:transparent;color:#1a1d1c;border-radius:12px;height:48px;font:700 15px 'Manrope',sans-serif;cursor:pointer">Sign in</button>
+      <button style="border:none;background:#f0b24a;color:#1a1d1c;border-radius:12px;height:48px;font:700 15px 'Manrope',sans-serif;cursor:pointer">Start a chat</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+</div></div>
+
+</div>
+<p class="dv-next">Try next: "take <a class="dv-oid" href="#1a">1a</a> but with the serif headline from <a class="dv-oid" href="#1b">1b</a>" · "make the chat in <a class="dv-oid" href="#1c">1c</a> show a second turn of conversation" · "show the flow after tapping Start"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showDrawers&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;ctaLabel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Start&quot;,&quot;options&quot;:[&quot;Start&quot;,&quot;Send&quot;,&quot;Begin&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Copy&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      showDrawers: this.props.showDrawers ?? true,
+      cta: this.props.ctaLabel ?? 'Start'
+    };
+  }
+}
+</script>
+</body>
+</html>
