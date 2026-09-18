@@ -21,16 +21,21 @@
 		</div>
 	{/if}
 
-	<div class="grid gap-4 sm:grid-cols-3">
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+		<a href="/me/questions" class="panel block hover:border-accent">
+			<p class="label">Questions</p>
+			<p class="mt-1 font-display text-[36px] leading-none">{data.pendingQuestions}</p>
+			<p class="text-sm text-muted">from companies, waiting for you</p>
+		</a>
 		<a href="/me/intros" class="panel block hover:border-accent">
 			<p class="label">Intro requests</p>
 			<p class="mt-1 font-display text-[36px] leading-none">{data.pendingIntros}</p>
 			<p class="text-sm text-muted">waiting for your answer</p>
 		</a>
 		<a href="/me/jobs" class="panel block hover:border-accent">
-			<p class="label">Matched public roles</p>
-			<p class="mt-1 font-display text-[36px] leading-none">{data.digestCount}</p>
-			<p class="text-sm text-muted">from your weekly digests</p>
+			<p class="label">Roles that fit you</p>
+			<p class="mt-1 font-display text-[36px] leading-none">{data.matchedRoles}</p>
+			<p class="text-sm text-muted">on EveryIntro, plus {data.digestCount} public listings</p>
 		</a>
 		<a href="/me/profile" class="panel block hover:border-accent">
 			<p class="label">Profile</p>

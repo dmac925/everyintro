@@ -16,7 +16,8 @@
 				{ href: '/chat', label: 'Chat' },
 				{ href: '/me/profile', label: 'Profile' },
 				{ href: '/me/intros', label: 'Intros' },
-				{ href: '/me/jobs', label: 'Jobs' }
+				{ href: '/me/jobs', label: 'Jobs' },
+				{ href: '/me/questions', label: 'Questions' }
 			];
 		if (user?.kind === 'employer')
 			return [

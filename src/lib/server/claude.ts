@@ -28,7 +28,7 @@ export function claude(env: Env): Anthropic {
 	return new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
 }
 
-export type Purpose = 'candidate_intake' | 'role_intake' | 'rerank' | 'digest';
+export type Purpose = 'candidate_intake' | 'role_intake' | 'rerank' | 'digest' | 'question';
 
 export class BudgetExceededError extends Error {}
 

@@ -20,6 +20,7 @@ interface IntroView {
 	location: string | null;
 	company_name: string;
 	why_json: string;
+	gaps_json: string;
 }
 
 export const load: PageServerLoad = async ({ locals, url, platform }) => {
@@ -29,7 +30,7 @@ export const load: PageServerLoad = async ({ locals, url, platform }) => {
 		env.DB,
 		`SELECT i.id, i.status, i.requested_at, i.expires_at, i.hired_at,
 			r.title AS role_title, r.summary AS role_summary, r.salary_min, r.salary_max, r.work_mode, r.location,
-			c.name AS company_name, m.why_json
+			c.name AS company_name, m.why_json, m.gaps_json
 		 FROM intros i
 		 JOIN roles r ON r.id = i.role_id
 		 JOIN companies c ON c.id = i.company_id
@@ -38,7 +39,7 @@ export const load: PageServerLoad = async ({ locals, url, platform }) => {
 		 ORDER BY i.requested_at DESC`,
 		user.id
 	);
-	return { intros: rows.map((r) => ({ ...r, why: parseJson<string[]>(r.why_json, []) })) };
+	return { intros: rows.map((r) => ({ ...r, why: parseJson<string[]>(r.why_json, []), gaps: parseJson<string[]>(r.gaps_json, []) })) };
 };
 
 export const actions: Actions = {

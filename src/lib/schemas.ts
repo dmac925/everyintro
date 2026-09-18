@@ -122,6 +122,15 @@ export const RerankOutput = z.object({
 });
 export type RerankOutput = z.infer<typeof RerankOutput>;
 
+// Screening verdict for a follow-up question (server/questions.ts).
+export const QuestionScreen = z.object({
+	verdict: z.enum(['answer', 'ask', 'refuse']),
+	answer: z.string().nullable(),
+	rewritten: z.string().nullable(),
+	reason: z.string().nullable()
+});
+export type QuestionScreen = z.infer<typeof QuestionScreen>;
+
 export const DigestOutput = z.object({
 	results: z.array(z.object({ ref: z.string(), fit: z.number().int(), why: z.string() }))
 });
