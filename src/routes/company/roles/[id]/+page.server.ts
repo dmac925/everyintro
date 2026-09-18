@@ -8,8 +8,8 @@ import { openRole, requestIntro } from '$lib/server/roles';
 import { dispatch } from '$lib/server/jobs/dispatch';
 import { candidateFacts, roleSpecOf } from '$lib/server/matching/facts';
 import { missingRoleFields } from '$lib/schemas';
-import { CARDS_PER_ROLE, MANUAL_REFRESH_MIN_HOURS, MIN_FIT_TO_SHOW } from '$lib/config';
-import type { CandidateRow, CompanyRow, MatchCardData, MatchRow, RoleRow } from '$lib/types';
+import { CARDS_PER_ROLE, INTEREST_LIFTS_FIT, MANUAL_REFRESH_MIN_HOURS, MAX_CARDS_PER_ROLE, MIN_FIT_TO_SHOW } from '$lib/config';
+import type { CandidateRow, CompanyRow, IntroStatus, MatchCardData, MatchRow, RoleRow } from '$lib/types';
 
 async function ownedRole(env: Env, company: CompanyRow, id: string): Promise<RoleRow> {
 	const role = await first<RoleRow>(env.DB, 'SELECT * FROM roles WHERE id = ? AND company_id = ?', id, company.id);
@@ -24,17 +24,25 @@ export const load: PageServerLoad = async ({ params, locals, url, platform }) =>
 	const role = await ownedRole(env, company, params.id);
 	const spec = roleSpecOf(role);
 
+	// Everything scored at or above one band below the cutoff. The first page is
+	// the strong fits (plus anyone who raised a hand); "show more" walks into the
+	// weaker band, labelled, up to MAX_CARDS_PER_ROLE.
 	type Row = MatchRow & Pick<CandidateRow, 'profile_json' | 'blind_summary'>;
 	const rows = await all<Row>(
 		env.DB,
 		`SELECT m.*, c.profile_json, c.blind_summary FROM matches m JOIN candidates c ON c.user_id = m.candidate_id
 		 WHERE m.role_id = ? AND m.status IN ('shown', 'requested') AND m.fit >= ?
-		 ORDER BY m.status = 'requested' DESC, m.fit DESC, m.created_at ASC`,
+		 ORDER BY m.status = 'requested' DESC, (m.interested_at IS NOT NULL) DESC, m.fit DESC, m.created_at ASC`,
 		role.id,
-		MIN_FIT_TO_SHOW
+		MIN_FIT_TO_SHOW - INTEREST_LIFTS_FIT
 	);
+	const strongEnough = (r: Row) => r.fit >= MIN_FIT_TO_SHOW || (r.interested_at != null && r.fit >= MIN_FIT_TO_SHOW - INTEREST_LIFTS_FIT);
 	const requested = rows.filter((r) => r.status === 'requested');
-	const shown = rows.filter((r) => r.status === 'shown').slice(0, CARDS_PER_ROLE);
+	const shownAll = rows.filter((r) => r.status === 'shown');
+	const ordered = [...shownAll.filter(strongEnough), ...shownAll.filter((r) => !strongEnough(r))];
+	const want = Number(url.searchParams.get('show')) || CARDS_PER_ROLE;
+	const visible = Math.min(MAX_CARDS_PER_ROLE, Math.max(CARDS_PER_ROLE, want));
+	const shown = ordered.slice(0, visible);
 	const toCard = (r: Row): MatchCardData => ({
 		matchId: r.id,
 		ref: r.id.slice(0, 4).toUpperCase(),
@@ -42,16 +50,50 @@ export const load: PageServerLoad = async ({ params, locals, url, platform }) =>
 		why: parseJson<string[]>(r.why_json, []),
 		gaps: parseJson<string[]>(r.gaps_json, []),
 		status: r.status,
+		interested: r.interested_at != null,
+		weak: r.fit < MIN_FIT_TO_SHOW,
 		facts: candidateFacts(r),
 		summary: r.blind_summary ?? ''
 	});
 
+	// Pipeline columns (issue #10). Candidate name and email are selected ONLY for accepted intros.
+	const intros = await all<{
+		id: string;
+		match_id: string;
+		status: IntroStatus;
+		requested_at: string;
+		responded_at: string | null;
+		decline_reason: string | null;
+		hired_at: string | null;
+		fit: number;
+		candidate_name: string | null;
+		candidate_email: string | null;
+	}>(
+		env.DB,
+		`SELECT i.id, i.match_id, i.status, i.requested_at, i.responded_at, i.decline_reason, i.hired_at, m.fit,
+			CASE WHEN i.status = 'accepted' THEN u.name END AS candidate_name,
+			CASE WHEN i.status = 'accepted' THEN u.email END AS candidate_email
+		 FROM intros i JOIN matches m ON m.id = i.match_id JOIN users u ON u.id = i.candidate_id
+		 WHERE i.role_id = ?
+		 ORDER BY i.requested_at DESC`,
+		role.id
+	);
+	const pipeline = {
+		asked: intros.filter((i) => i.status === 'requested'),
+		talking: intros.filter((i) => i.status === 'accepted' && !i.hired_at),
+		hired: intros.filter((i) => i.hired_at),
+		closed: intros.filter((i) => i.status === 'declined' || i.status === 'expired')
+	};
+
 	return {
+		pipeline,
+		shortlist: { visible: shown.length, total: Math.min(MAX_CARDS_PER_ROLE, ordered.length), page: CARDS_PER_ROLE },
 		role: { id: role.id, status: role.status, summary: role.summary, expiresAt: role.expires_at, lastMatchedAt: role.last_matched_at },
 		spec,
 		missing: missingRoleFields(spec).concat(role.summary ? [] : ['finish the intake chat']),
 		cards: shown.map(toCard),
-		requestedCards: requested.map(toCard),
+		// A match stays 'requested' after the intro resolves; only unanswered intros belong in Asked.
+		requestedCards: requested.filter((r) => pipeline.asked.some((i) => i.match_id === r.id)).map(toCard),
 		paid: url.searchParams.has('paid'),
 		cancelled: url.searchParams.has('cancelled')
 	};
