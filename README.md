@@ -2,7 +2,7 @@
 
 Open-source AI hiring marketplace. An AI chats with candidates, another with employers, and a matcher shortlists in between. Intros are double opt-in. Free for candidates. Employers post roles and request intros free, and pay a flat £500 per hire, refunded if the hire leaves within 90 days. No salary cut.
 
-Source: https://github.com/dmac925/everyintro · Licence: AGPL-3.0-only (see [Licence](#licence)) · Security: [SECURITY.md](SECURITY.md)
+Source: https://github.com/dmac925/everyintro · Roadmap: [ROADMAP.md](ROADMAP.md) · Licence: AGPL-3.0-only (see [Licence](#licence)) · Security: [SECURITY.md](SECURITY.md)
 
 **Status: pre-launch.** Every page, route, table and pipeline stage exists, type-checks and runs on Cloudflare with Clerk auth. Email is still a console stub, Stripe isn't connected to a live account, and there are no tests yet — see [What's left](#whats-left--todo).
 
@@ -76,7 +76,7 @@ migrations/              D1 schema (+ seed/)
 
 The homepage shows a chat *starter*: the first message (or CV / LinkedIn URL) is carried client-side to `/chat` (`src/lib/client/pending.ts`), where the conversation runs and the profile builds beside it — a sticky card on desktop, a progress strip that opens a bottom sheet on mobile (`ProfileProgress.svelte`). Nothing is created until that first message; then `/api/intake/start` opens an anonymous conversation keyed by an `ei_anon` cookie, with the profile draft in `conversations.draft_json`. After `ANON_TURNS_BEFORE_SIGNIN` turns (or a completed profile) the stream emits `gate` and the panel shows a sign-in link. Sign-in claims the conversation (`claimConversation`): draft → `candidates` row, transcript kept. Anonymous spend is bounded by that turn cap and `ANON_CHATS_PER_IP_PER_DAY`.
 
-**CV / LinkedIn import** sends the material into the same chat as one turn (PDFs as a document block; stored in R2 when bound, replaced by a placeholder in the saved transcript). LinkedIn blocks unauthenticated profile reads, so the URL path usually returns guidance to use LinkedIn's *Save to PDF* export instead.
+**CV / LinkedIn import** (`/api/intake/[id]/import`) sends the material into the same chat as one turn, so the agent reads it, fills the profile with `update_profile` and then asks only about what a CV can't answer (the rules are in `CANDIDATE_SYSTEM`). PDFs go to the model as a document block; Word `.docx` files are unzipped to text server-side (`server/intake/cv.ts`, via `fflate`); the original is stored in R2 when bound and replaced by a placeholder in the saved transcript. LinkedIn blocks unauthenticated profile reads, so the URL path usually fails; the response then carries `guidance`, which the chat shows as a reply and opens a paste box (`linkedin_text`), and the *Save to PDF* export works through the CV path. In `LLM_MODE=mock`, text imports are read by a crude script so the flow can be exercised for free.
 
 ### How a match happens
 
