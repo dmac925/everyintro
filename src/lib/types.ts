@@ -113,6 +113,37 @@ export interface IntroRow {
 	hired_at: string | null;
 }
 
+export type QuestionStatus = 'pending' | 'answered_by_agent' | 'sent' | 'answered' | 'declined' | 'refused';
+
+export interface QuestionRow {
+	id: string;
+	role_id: string;
+	match_id: string;
+	candidate_id: string;
+	company_id: string;
+	asked_by: string | null;
+	batch_id: string | null;
+	text: string;
+	sent_text: string | null;
+	status: QuestionStatus;
+	answer: string | null;
+	answer_source: 'profile' | 'candidate' | null;
+	refusal_reason: string | null;
+	created_at: string;
+	answered_at: string | null;
+}
+
+/** What an employer card shows about a question. */
+export interface MatchQuestion {
+	id: string;
+	text: string;
+	status: QuestionStatus;
+	answer: string | null;
+	answerSource: 'profile' | 'candidate' | null;
+	reason: string | null;
+	askedAt: string;
+}
+
 export interface PublicJobRow {
 	id: string;
 	source: string;
@@ -140,6 +171,7 @@ export interface MatchCardData {
 	status: MatchStatus;
 	interested: boolean; // the candidate raised a hand on this role
 	weak: boolean; // below MIN_FIT_TO_SHOW; only revealed via "show more"
+	questions: MatchQuestion[]; // follow-up questions and answers, newest first
 	facts: {
 		titles: string[];
 		seniority: string | null;

@@ -6,6 +6,8 @@ import { all, first, parseJson, run } from '$lib/server/db';
 import type { Env } from '$lib/server/env';
 import { openRole, requestIntro } from '$lib/server/roles';
 import { dispatch } from '$lib/server/jobs/dispatch';
+import { askQuestion, QuestionError, questionsForRole } from '$lib/server/questions';
+import { BudgetExceededError, friendlyError } from '$lib/server/claude';
 import { candidateFacts, roleSpecOf } from '$lib/server/matching/facts';
 import { missingRoleFields } from '$lib/schemas';
 import { CARDS_PER_ROLE, INTEREST_LIFTS_FIT, MANUAL_REFRESH_MIN_HOURS, MAX_CARDS_PER_ROLE, MIN_FIT_TO_SHOW } from '$lib/config';
@@ -43,6 +45,7 @@ export const load: PageServerLoad = async ({ params, locals, url, platform }) =>
 	const want = Number(url.searchParams.get('show')) || CARDS_PER_ROLE;
 	const visible = Math.min(MAX_CARDS_PER_ROLE, Math.max(CARDS_PER_ROLE, want));
 	const shown = ordered.slice(0, visible);
+	const questions = await questionsForRole(env, role.id);
 	const toCard = (r: Row): MatchCardData => ({
 		matchId: r.id,
 		ref: r.id.slice(0, 4).toUpperCase(),
@@ -52,6 +55,15 @@ export const load: PageServerLoad = async ({ params, locals, url, platform }) =>
 		status: r.status,
 		interested: r.interested_at != null,
 		weak: r.fit < MIN_FIT_TO_SHOW,
+		questions: (questions.get(r.id) ?? []).map((q) => ({
+			id: q.id,
+			text: q.text,
+			status: q.status,
+			answer: q.answer,
+			answerSource: q.answer_source,
+			reason: q.refusal_reason,
+			askedAt: q.created_at
+		})),
 		facts: candidateFacts(r),
 		summary: r.blind_summary ?? ''
 	});
@@ -123,6 +135,31 @@ export const actions: Actions = {
 		if (!match) return fail(404, { message: 'Match not found.' });
 		await requestIntro(env, company, role, match);
 		return { requested: true };
+	},
+
+	// Follow-up question to one card (matchId) or several (matchId repeated).
+	ask: async ({ params, request, locals, url, platform }) => {
+		const user = requireUser(locals, url, 'employer');
+		const env = getEnv(platform);
+		const company = await requireCompany(env, user);
+		const role = await ownedRole(env, company, params.id);
+		if (role.status !== 'open') return fail(400, { message: 'Open the role before asking questions.' });
+		const form = await request.formData();
+		const matchIds = form.getAll('matchId').map(String);
+		try {
+			const r = await askQuestion(env, company, role, user.id, matchIds, String(form.get('text') ?? ''));
+			const bits = [
+				r.answered && `${r.answered} answered from the profile`,
+				r.sent && `${r.sent} sent to the candidate`,
+				r.refused && `${r.refused} not sent (see the card)`,
+				r.skipped && `${r.skipped} skipped, at their weekly limit`
+			].filter(Boolean);
+			return { asked: true, notice: bits.join(', ') + '.' };
+		} catch (err) {
+			if (err instanceof QuestionError || err instanceof BudgetExceededError) return fail(400, { message: err.message });
+			console.error('ask failed', err);
+			return fail(500, { message: friendlyError(err) });
+		}
 	},
 
 	pass: async ({ params, request, locals, url, platform }) => {

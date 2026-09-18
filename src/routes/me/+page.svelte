@@ -21,7 +21,12 @@
 		</div>
 	{/if}
 
-	<div class="grid gap-4 sm:grid-cols-3">
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+		<a href="/me/questions" class="panel block hover:border-accent">
+			<p class="label">Questions</p>
+			<p class="mt-1 font-display text-[36px] leading-none">{data.pendingQuestions}</p>
+			<p class="text-sm text-muted">from companies, waiting for you</p>
+		</a>
 		<a href="/me/intros" class="panel block hover:border-accent">
 			<p class="label">Intro requests</p>
 			<p class="mt-1 font-display text-[36px] leading-none">{data.pendingIntros}</p>

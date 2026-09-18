@@ -2,8 +2,19 @@
 	import { enhance } from '$app/forms';
 	import type { MatchCardData } from '$lib/types';
 
+	import { QUESTION_MAX_CHARS } from '$lib/config';
+
 	// Blind candidate card shown to employers. No name, contact or salary floor.
-	let { match }: { match: MatchCardData } = $props();
+	let { match, canAsk = false }: { match: MatchCardData; canAsk?: boolean } = $props();
+
+	const qStatus: Record<string, { label: string; cls: string }> = {
+		answered_by_agent: { label: 'From their profile', cls: 'bg-teal-soft text-teal' },
+		sent: { label: 'Asked, waiting', cls: 'bg-accent-soft text-accent' },
+		answered: { label: 'Answered', cls: 'bg-good-soft text-good' },
+		declined: { label: 'Declined', cls: 'bg-sunk text-muted' },
+		refused: { label: 'Not sent', cls: 'bg-warn-soft text-warn' },
+		pending: { label: 'Checking', cls: 'bg-sunk text-muted' }
+	};
 
 	const chips = $derived(
 		[
@@ -46,6 +57,31 @@
 		<dt class="label pt-0.5">Gaps</dt>
 		<dd class="text-warn"><ul class="list-disc pl-4">{#each match.gaps as g (g)}<li>{g}</li>{:else}<li>None obvious</li>{/each}</ul></dd>
 	</dl>
+
+	{#if match.questions.length}
+		<div class="space-y-2 rounded-2xl bg-ground p-3 text-sm">
+			<p class="label">Questions</p>
+			{#each match.questions as q (q.id)}
+				<div class="space-y-0.5">
+					<p class="flex flex-wrap items-baseline gap-2"><span class="font-medium">{q.text}</span><span class="pill {qStatus[q.status].cls}">{qStatus[q.status].label}</span></p>
+					{#if q.answer}<p class="text-body">{q.answer}</p>{/if}
+					{#if q.reason}<p class="text-xs text-warn">{q.reason}</p>{/if}
+				</div>
+			{/each}
+		</div>
+	{/if}
+
+	{#if canAsk && (match.status === 'shown' || match.status === 'requested')}
+		<details class="text-sm">
+			<summary class="cursor-pointer font-semibold text-muted hover:text-ink">Ask a question</summary>
+			<form method="POST" action="?/ask" use:enhance class="mt-2 space-y-2">
+				<input type="hidden" name="matchId" value={match.matchId} />
+				<label for="q-{match.matchId}" class="sr-only">Question</label>
+				<textarea id="q-{match.matchId}" name="text" rows="2" maxlength={QUESTION_MAX_CHARS} required class="field" placeholder="Something the card doesn't tell you. Nothing that would identify them."></textarea>
+				<button class="btn btn-sm">Ask</button>
+			</form>
+		</details>
+	{/if}
 
 	{#if match.status === 'shown'}
 		<div class="flex flex-wrap items-center gap-2">

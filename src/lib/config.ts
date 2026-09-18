@@ -19,6 +19,13 @@ export const MAX_CARDS_PER_ROLE = 20; // hard cap on "show more" per role
 export const MIN_FIT_TO_SHOW = 4; // 1–5; show fewer cards rather than weak ones
 // A candidate who raised a hand is shown one fit band lower than the cutoff.
 export const INTEREST_LIFTS_FIT = 1;
+
+// ── Follow-up questions (issues #13, #14) ──────────────────────────────────
+// One small screening call per candidate per question (see server/questions.ts).
+export const QUESTIONS_PER_ROLE = 30; // lifetime cap per role, batches count per candidate
+export const QUESTIONS_PER_CANDIDATE_PER_WEEK = 5; // across all roles; refused ones don't count
+export const QUESTION_BATCH_MAX = 10; // cards per ask
+export const QUESTION_MAX_CHARS = 300;
 export const REMATCH_MIN_DAYS = 7; // automatic re-runs per open role, at most weekly
 export const MANUAL_REFRESH_MIN_HOURS = 24;
 

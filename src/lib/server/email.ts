@@ -25,6 +25,10 @@ export const templates = {
 		subject: `Intro accepted: ${roleTitle}`,
 		text: `${candidateName} accepted your intro request for "${roleTitle}".\nEmail: ${candidateEmail}\n\n${base(env)}/company/intros`
 	}),
+	questionAsked: (env: Env, roleTitle: string, companyName: string): Omit<Email, 'to'> => ({
+		subject: `${companyName} has a question about "${roleTitle}"`,
+		text: `A company that shortlisted you for "${roleTitle}" has a quick question. You're still anonymous to them; your answer goes on your card.\n\nAnswer or decline: ${base(env)}/me/questions`
+	}),
 	digest: (env: Env, lines: string[]): Omit<Email, 'to'> => ({
 		subject: 'Roles that fit you this week',
 		text: `${lines.join('\n\n')}\n\nSee them all: ${base(env)}/me/jobs`
