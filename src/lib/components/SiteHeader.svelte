@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
-	import { BRAND } from '$lib/brand';
+	import { BRAND, REPO_URL } from '$lib/brand';
 	import SignOutButton from './SignOutButton.svelte';
 	import type { User } from '$lib/types';
 
@@ -109,7 +109,7 @@
 			</nav>
 			<div class="mt-4 flex gap-4 text-[13px] font-semibold text-muted">
 				<a href="/privacy">Privacy</a>
-				<a href="https://github.com/">Source (AGPL-3.0)</a>
+				<a href={REPO_URL}>Source (AGPL-3.0)</a>
 			</div>
 			<div class="mt-auto grid grid-cols-2 gap-2 pt-6">
 				{#if user}
