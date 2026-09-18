@@ -32,11 +32,14 @@
 				<span class="pill capitalize {statusClass[intro.status]}">{intro.hired_at ? 'Hired' : intro.status}</span>
 			</div>
 			{#if intro.role_summary}<p class="text-sm">{intro.role_summary}</p>{/if}
-			{#if intro.why.length}
-				<div>
-					<p class="label mb-1">Why you matched</p>
-					<ul class="list-disc pl-5 text-sm">{#each intro.why as w (w)}<li>{w}</li>{/each}</ul>
-				</div>
+			{#if intro.why.length || intro.gaps.length}
+				<dl class="grid gap-x-3 gap-y-1.5 text-sm sm:grid-cols-[7rem_1fr]">
+					<dt class="label pt-0.5">Why you fit</dt>
+					<dd><ul class="list-disc pl-4">{#each intro.why as w (w)}<li>{w}</li>{:else}<li class="text-muted">No notes</li>{/each}</ul></dd>
+					<dt class="label pt-0.5">Gaps</dt>
+					<dd class="text-warn"><ul class="list-disc pl-4">{#each intro.gaps as g (g)}<li>{g}</li>{:else}<li>None obvious</li>{/each}</ul></dd>
+				</dl>
+				<p class="text-xs text-muted">The company sees exactly these reasons and gaps, nothing more, until you accept.</p>
 			{/if}
 			{#if intro.status === 'requested'}
 				<div class="flex flex-wrap items-center gap-2">

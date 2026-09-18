@@ -22,7 +22,14 @@
 			<p class="font-mono text-xs text-muted">Candidate {match.ref}</p>
 			<p class="font-display text-[22px] leading-tight">{match.facts.titles[0] ?? 'Candidate'}</p>
 		</div>
-		<span class="pill bg-good-soft text-good">Fit {match.fit} / 5</span>
+		<div class="flex flex-wrap items-center gap-1.5">
+			{#if match.interested}<span class="pill bg-amber-soft text-amber-ink" title="The candidate saw this role and said they'd be interested">Interested</span>{/if}
+			{#if match.weak}
+				<span class="pill bg-warn-soft text-warn">Fit {match.fit} / 5 · weaker</span>
+			{:else}
+				<span class="pill bg-good-soft text-good">Fit {match.fit} / 5</span>
+			{/if}
+		</div>
 	</div>
 
 	{#if chips.length}

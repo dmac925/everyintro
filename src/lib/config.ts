@@ -15,7 +15,10 @@ export const INTRO_EXPIRY_DAYS = 14;
 // ── Matching ───────────────────────────────────────────────────────────────
 export const SHORTLIST_SIZE = 50; // max candidates Claude reranks per run
 export const CARDS_PER_ROLE = 5; // shown to the employer at once
+export const MAX_CARDS_PER_ROLE = 20; // hard cap on "show more" per role
 export const MIN_FIT_TO_SHOW = 4; // 1–5; show fewer cards rather than weak ones
+// A candidate who raised a hand is shown one fit band lower than the cutoff.
+export const INTEREST_LIFTS_FIT = 1;
 export const REMATCH_MIN_DAYS = 7; // automatic re-runs per open role, at most weekly
 export const MANUAL_REFRESH_MIN_HOURS = 24;
 

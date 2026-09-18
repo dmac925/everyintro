@@ -92,6 +92,7 @@ export interface MatchRow {
 	pass_reason: string | null;
 	run_id: string | null;
 	model: string | null;
+	interested_at: string | null; // candidate raised a hand (issue #7)
 	created_at: string;
 	updated_at: string;
 }
@@ -137,6 +138,8 @@ export interface MatchCardData {
 	why: string[];
 	gaps: string[];
 	status: MatchStatus;
+	interested: boolean; // the candidate raised a hand on this role
+	weak: boolean; // below MIN_FIT_TO_SHOW; only revealed via "show more"
 	facts: {
 		titles: string[];
 		seniority: string | null;

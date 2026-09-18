@@ -28,9 +28,9 @@
 			<p class="text-sm text-muted">waiting for your answer</p>
 		</a>
 		<a href="/me/jobs" class="panel block hover:border-accent">
-			<p class="label">Matched public roles</p>
-			<p class="mt-1 font-display text-[36px] leading-none">{data.digestCount}</p>
-			<p class="text-sm text-muted">from your weekly digests</p>
+			<p class="label">Roles that fit you</p>
+			<p class="mt-1 font-display text-[36px] leading-none">{data.matchedRoles}</p>
+			<p class="text-sm text-muted">on EveryIntro, plus {data.digestCount} public listings</p>
 		</a>
 		<a href="/me/profile" class="panel block hover:border-accent">
 			<p class="label">Profile</p>
